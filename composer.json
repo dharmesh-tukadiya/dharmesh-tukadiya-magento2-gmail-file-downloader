@@ -1,0 +1,49 @@
+{
+    "name": "dharmesh-tukadiya/magento2-gmail-file-downloader",
+    "description": "Magento 2 Gmail File Downloader - Download Google Gmail Attachments To Magento Via API Integration & Custom Filters",
+    "type": "magento2-module",
+    "license": "GPL-3.0",
+    "version": "1.0.0",
+    "authors": [
+        {
+            "name": "Dharmesh N Tukadiya",
+            "homepage": "https://dharmesh-tukadiya.github.io/",
+            "role": "Magento 2 Developer",
+            "email": "contact.dharmesh.tukadiya@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "keywords": [
+        "api",
+        "automation",
+        "google",
+        "gmail",
+        "magento",
+        "magento2",
+        "gmail-api",
+        "file-downloader",
+        "gmail-file-downloader",
+        "google-gmail",
+        "email",
+        "magento2-module",
+        "magento-module",
+        "magento2-extension",
+        "magento2-module-free",
+        "magento-module-free",
+        "magento2-extension-free",
+        "magento-extension-free"
+    ],
+    "require": {
+        "php": ">=7.4.0",
+        "magento/framework": "*",
+        "magento/product-community-edition": ">=2.4.0"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "DnTukadiya\\GmailFileDownloader\\": ""
+        }
+    }
+}

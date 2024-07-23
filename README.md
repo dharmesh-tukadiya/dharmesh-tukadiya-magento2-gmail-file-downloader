@@ -1,43 +1,57 @@
-# Magento 2 Gmail File Downloader - Download Google Gmail Attachments To Magento Via API Integration & Custom Filters
+# Magento 2 Gmail File Downloader
+
+**Download Google Gmail Attachments to Magento via API Integration & Custom Filters**
+
+[![Magento 2](https://img.shields.io/badge/Magento-2-brightgreen.svg)](https://magento.com)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+## Introduction
+
+The **Magento 2 Gmail File Downloader** extension allows you to seamlessly download Gmail attachments directly into your Magento store using API integration and custom filters. Automate file imports and enhance your Magento backend with this powerful tool.
+
+## Features
+
+- **OAuth 2.0 Integration:** Securely connect your Gmail account to Magento.
+- **Custom Filters:** Set specific criteria for downloading email attachments.
+- **Automated Imports:** Schedule cron jobs to run hourly.
+- **Configuration Profiles:** Manage multiple download profiles with ease.
+
+## Installation
+
+1. **Download the Extension:**
+
+2. **Enable the Module:**
+   ```
+   php bin/magento module:enable Dharmesh_GmailFileDownloader
+   ```
+
+3. **Run Upgrade and Compile:**
+   ```
+   php bin/magento setup:upgrade
+   php bin/magento setup:di:compile
+   ```
+
+4. **Deploy Static Content:**
+   ```
+   php bin/magento setup:static-content:deploy
+   ```
 
 ## Authorization Flow & Configurations
 
 ### Step-by-Step Guide:
 
-1. **Navigate to Google Cloud Console:**
+1. **Google Cloud Console:**
    - Visit [Google Cloud Console](https://console.cloud.google.com/apis/dashboard).
-   - Create a new project, e.g., "Gmail File Downloader".
+   - Create a new project named "Gmail File Downloader".
+   - Enable the "Gmail API" from the "Library" section.
+   - Create OAuth 2.0 credentials and download the JSON file.
 
-2. **Switch to the New Project:**
-   - From the top navigation, switch to "Gmail File Downloader".
+2. **Magento Configuration:**
+   - Navigate to Magento Admin: `Stores` > `Configuration` > `Gmail File Downloader` > `Settings`.
+   - Paste the JSON data under the "Credentials" tab.
 
-3. **Enable Gmail API:**
-   - Go to the "Library" section on the left-hand side.
-   - Search for "Gmail API" and enable it.
-
-4. **Create OAuth Credentials:**
-   - Under the "Credentials" tab, click on "+ Create Credentials" => "OAuth client ID".
-   - Click on "Configure Consent Screen".
-   - If you're a Google Workspace user, select "Internal"; otherwise, select "External" and click "Create".
-
-5. **Fill in the Consent Screen Details:**
-   - App Name: "Gmail File Downloader"
-   - User Support Email: `<Choose-Your-Email>`
-   - Developer Contact Information: `<Enter-Your-Email-Address>`
-   - Click on "Save & Continue".
-   - Skip Scopes and click on "Save & Continue".
-   - Click on "Add Users" and enter your email address.
-   - Click on "Save & Continue".
-
-6. **Create OAuth Client ID:**
-   - Go to "Library" => "Gmail API" => "Manage" => "Credentials" tab => "Create Credentials" => "OAuth Client ID".
-   - Select Application Type: "Web Application".
-   - Authorized redirect URIs: `<your-website-url>/randomurl-we8d4fx1246a.html`.
-   - Click on "Create".
-   - Download credentials as JSON and paste the JSON data in Magento Backend Admin under "Store" => "Configuration" => "Gmail File Downloader" section => "Settings" tab => "Credentials" => "Web".
-
-7. **Authorize and Get Access Token:**
-   - Open the following URL in your browser with details from the downloaded JSON file:
+3. **Authorization URL:**
+   - Use the following URL for authorization:
      ```
      https://accounts.google.com/o/oauth2/auth
      ?client_id=<CLIENT_ID>
@@ -47,10 +61,9 @@
      &access_type=offline
      &prompt=consent
      ```
-   - After successful authorization, copy the received code from the redirected URL.
 
-8. **Exchange Authorization Code for Access Token:**
-   - Open the terminal and use the following command:
+4. **Exchange Authorization Code for Access Token:**
+   - Run the following command in the terminal:
      ```bash
      CLIENT_ID="<CLIENT_ID>"
      CLIENT_SECRET="<CLIENT_SECRET>"
@@ -67,23 +80,13 @@
      https://oauth2.googleapis.com/token
      ```
 
-9. **Store the Access Token:**
-   - Copy the JSON data from the terminal response.
-   - Paste it in Magento Backend Admin under "Store" => "Configuration" => "Gmail File Downloader" section => "Settings" tab => "Credentials" => "Token".
+5. **Store Access Token:**
+   - Copy the JSON response and paste it in Magento Admin under `Stores` > `Configuration` > `Gmail File Downloader` > `Settings` > `Token`.
 
-10. **Handle Missing Refresh Token:**
-    - If the refresh token is not received, remove access for the Gmail File Downloader app from the Gmail account ([Manage Permissions](https://myaccount.google.com/u/0/permissions)).
-    - Repeat the authentication process from step 7.
+## Configuration Profiles
 
-11. **Enable the Module:**
-    - Go to "Store" => "Configuration" => "Gmail File Downloader" section => "Settings" tab => "Module Status" and enable the module.
+### Example Profile
 
-12. **Set User ID:**
-    - Enter your email address in "Store" => "Configuration" => "Gmail File Downloader" section => "Settings" tab => "Credentials" => "User ID".
-
-### Configuration Profiles:
-
-Example configuration profile with explanation:
 ```json
 [
   {
@@ -108,9 +111,9 @@ Example configuration profile with explanation:
   }
 ]
 ```
-You can add multiple JSON objects in the above array to download more than one file at a time.
 
-#### Fields Explanation:
+### Fields Explanation
+
 - **from:** Comma-separated sender emails.
 - **to:** Comma-separated recipient emails.
 - **subject:** Email subject.
@@ -120,18 +123,32 @@ You can add multiple JSON objects in the above array to download more than one f
 - **within:** Within how many days? Set "0" for the latest email.
 - **after:** Date after.
 - **before:** Date before.
-- **withinWhichEntity:** Within which entity? (All Mail, Inbox, Starred, etc.)
-- **hasAttachment:** Has attachment? (True or False)
-- **notIncludeChats:** Exclude chats?
+- **withinWhichEntity:** Email entity (All Mail, Inbox, Starred, etc.).
+- **hasAttachment:** Has attachment? (True/False)
+- **notIncludeChats:** Exclude chats? (True/False)
 - **outputFilePath:** Output file path starting from the Magento root directory.
 - **absoluteFilePath:** Absolute file path (overrides output file path).
 - **attachedFileExtension:** File extensions (e.g., xlsx, csv, docx, etc.).
 - **specificAttachedFileName:** Specific file name in the email attachment.
-- **fileImporterClass:** File importer class (for custom file processing).
-- **fileImporterFunction:** Executable function of the file importer class.
+- **fileImporterClass:** File importer class for custom processing.
+- **fileImporterFunction:** Function of the file importer class.
 
-## Additional Notes:
+## Additional Notes
 
-- A cron job is set to run every hour.
+- A cron job is set to run every hour to automate the download process.
 
-Enhance your Magento 2 store with seamless Gmail attachment downloads using this comprehensive guide. Enjoy automated file imports directly into your Magento backend!
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Contributing
+
+Feel free to submit pull requests, create issues, or fork this repository. Contributions are always welcome!
+
+## Support
+
+For any questions or support, please open an issue or contact the [maintainer](https://github.com/dharmesh-tukadiya).
+
+---
+
+Enhance your Magento 2 store by integrating Gmail attachment downloads with the **Magento 2 Gmail File Downloader** extension. Automate your file import process and manage your emails efficiently!

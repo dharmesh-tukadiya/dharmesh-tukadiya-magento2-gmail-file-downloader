@@ -1,0 +1,65 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+	<system>
+		<tab id="gmail_file_importer" translate="label" sortOrder="999">
+			<label>Gmail File Importer</label>
+		</tab>
+		<section id="gmail_file_importer_settings" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+			<label>Settings</label>
+			<tab>gmail_file_importer</tab>
+			<resource>DnTukadiya_GmailFileDownloader::config_dntukadiya_gmailfileimporter</resource>
+			<group id="module" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+				<label>Module Status</label>
+				<field id="status" type="select" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+					<label>Is Module Enabled ?</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+			</group>
+			<group id="credentials" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+				<label>Credentials</label>
+				<field id="web" type="textarea" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+					<label>web</label>
+					<comment>It's used for storing json string downloaded from gmail api console panel.</comment>
+				</field>
+				<field id="token" type="textarea" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+					<label>Token</label>
+					<comment>This data includes Access Token, Refresh Token, Scope, Token Type, Expiry Date</comment>
+				</field>
+				<field id="user_id" type="text" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+					<label>User ID</label>
+					<comment>Email Address</comment>
+				</field>
+			</group>
+			<group id="configuration" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+				<label>Configuration Profiles</label>
+				<field id="profiles" type="textarea" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+					<label>Configuration Profiles (JSON)</label>
+					<comment><![CDATA[
+					[<br />
+						&emsp;{<br />
+							&emsp;&emsp;"from" : "", //comma seperated from emails<br />
+							&emsp;&emsp;"to" : "", //comma seperated to emails<br />
+							&emsp;&emsp;"subject" : "", //Email Subject<br />
+							&emsp;&emsp;"hasTheWords" : "", //has the words in an email<br />
+							&emsp;&emsp;"doesnotHaveTheWords" : "", //emails excluding specific words<br />
+							&emsp;&emsp;"size" : "", //File Size<br />
+							&emsp;&emsp;"within" : "", //Within How Many Days ? set "0" for latest email<br />
+							&emsp;&emsp;"after" : "", //Date After<br />
+							&emsp;&emsp;"before" : "", //Date Before<br />
+							&emsp;&emsp;"withinWhichEntity" : "", //Within Which Entity ? All Mail, Inbox, Starred, ...<br />
+							&emsp;&emsp;"hasAttachment" : "", //Has Attachment ? True or False.<br />
+							&emsp;&emsp;"notIncludeChats" : "", //Not To Include Chats ?<br />
+							&emsp;&emsp;"outputFilePath" : "", //Output file path starting from magento root dir.<br />
+							&emsp;&emsp;"absoluteFilePath" : "", //Absolute file path. It will ignore output file path.<br />
+							&emsp;&emsp;"attachedFileExtension" : "", //e.g. xlsx,csv,docx, ...<br />
+							&emsp;&emsp;"specificAttachedFileName" : "", //specific file name in email attachment<br />
+							&emsp;&emsp;"fileImporterClass":"", //File importer class<br />
+							&emsp;&emsp;"fileImporterFunction" : "" //File importer function<br />
+						&emsp;}<br />
+        			]<br />
+					]]>					</comment>
+				</field>
+			</group>
+		</section>
+	</system>
+</config>

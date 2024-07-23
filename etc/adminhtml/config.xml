@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <gmail_file_importer_settings>
+            <module>
+                <status>0</status>
+            </module>
+            <credentials>
+                <web>{&quot;web&quot;:{}}</web>
+                <token>{}</token>
+                <user_id/>
+            </credentials>
+            <configuration>
+                <profiles>[]</profiles>
+            </configuration>
+        </gmail_file_importer_settings>
+    </default>
+</config>

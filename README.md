@@ -22,7 +22,7 @@ The **Magento 2 Gmail File Downloader** extension allows you to seamlessly downl
 
 2. **Enable the Module:**
    ```
-   php bin/magento module:enable Dharmesh_GmailFileDownloader
+   php bin/magento module:enable DnTukadiya_GmailFileDownloader
    ```
 
 3. **Run Upgrade and Compile:**
